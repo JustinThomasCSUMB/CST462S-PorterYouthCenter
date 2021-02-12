@@ -5,9 +5,43 @@
 
     <main class="d-flex justify-content-center align-items-center">
       <h1 class="text-center">Behavior / Injury Reports</h1>
+      <div>
+          <select>
+              <option value="allStudents" id="allStudents" name="allStudents">All Students</option>
+              <!--
+                  <%students.forEach(function(student){%>
+                    <option value="<%=student.id"><%=student.name%></option>}
+              -->
+          </select>
+          <input type="datetime-local" id="dateTime"/>
+          <button class="btn btn-lg btn-primary btn-block">Show Reports</button>
+      </div>
       <div id="reports">
         <table id="reportTable">
-            <th></th>
+            <tr>
+                <th>Child's Name</th>
+                <th>Email</th>
+                <th>Date</th>
+                <th>Staff's Name</th>
+                <th>Location</th>
+                <th>Children Present</th>
+                <th>Adults Present></th>
+                <th>Part Injured</th>
+                <th>Wound</th>
+                <th>How</th>
+                <th>Treated</th>
+                <th>At-risk Behavior</th>
+                <th>Behavior</th>
+                <th>Triggers</th>
+                <th>Supports</th>
+                <th>Recovery</th>
+                <th>Support Plan</th>
+                <th>Next Steps</th>
+                <th>Descripton</th>
+                <th>Manager Signature</th>
+                <th>Parent Signature</th>
+                <th>Parent Feedback</th>
+            </tr>
         </table>
       </div>
       
