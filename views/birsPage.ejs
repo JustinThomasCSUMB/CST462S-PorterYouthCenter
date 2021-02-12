@@ -1,0 +1,164 @@
+<%- include('partials/header.ejs') %>
+
+  <body>
+    <%- include('partials/nav.ejs') %>
+
+    <main class="d-flex justify-content-center align-items-center">
+      <h1>Behavior / Injury Report</H1>      
+      <form id="birs-form" method="POST">
+        <label for="email">Email Address</label>
+        <input id="email" name="email" type="text" required/>
+
+        <label for="childName">Child's Name</label>
+        <input id="childName" name="childName" type="text" required/> <!-- TODO: change to dropdown/ search select populated from db query-->
+        <!--            
+        <%children.forEach(function(child){%>
+            <option value="<%=child.id%>"><%=child.name%></option>
+          <% });%>
+        -->
+
+        <label for="dateTime">Date</label>
+        <input id="dateTime" name="dateTime" type="datetime-local" required/>
+
+        <label for="staffName">Staff Name</label>
+        <input id="staffName" name="staffName" type="text" required/> <!--TODO: should auto populate based on logged in staff member, currently only one login-->
+
+        <label for="location">Where did the accident/incident occur?</label> <!--TODO: change to dropdown auto populate from db query-->
+        <!--            
+        <%locations.forEach(function(loc){%>
+            <option value="<%=loc.id%>"><%=loc.name%></option>
+          <% });%>
+        -->
+        <select id="location" name="location" required>
+            <option value="Kinder Room">Kinder Room</option>
+            <option value="Lounge">Lounge</option>
+            <option value="Playground">Playground</option>
+            <option value="Gym">Gym</option>
+            <option value="Computer Lab">Computer Lab</option>
+            <option value="Stage">Stage</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <label for="numChildrenPresent">How many children were present at the time of the accident/incident?</label>
+        <input id="numChildrenPresent" name="numChildrenPresent" type="number" min="0" required/>
+
+        <label for="numAdultsPresent">How many adults were present at the time of the accident/incident?</label>
+        <input id="numAdultsPresent" name="numAdultsPresent" type="number" min="0" required/>
+
+        <h2>Injury Report</h2>
+        <label for="bodyPart">Part of body injured</label> <!--TODO: auto populate from db call-->
+        <!--            
+        <%bodyPart.forEach(function(part){%>
+            <option value="<%=part.id%>"><%=part.name%></option>
+          <% });%>
+        -->
+        <select id="bodyPart" name="bodyPart" required>
+            <option value="Head/Face">Head/Face</option>
+            <option value="Neck">Neck</option>
+            <option value="Chest/Stomach">Chest/Stomach</option>
+            <option value="Arm">Arm</option>
+            <option value="Hand">Hand</option>
+            <option value="Back">Back</option>
+            <option value="Genitals">Genitals</option>
+            <option value="Leg">Leg</option>
+            <option value="Foot">Foot</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <label for="woundDescription">Wound Description (type,size)</label>
+        <textarea id="woundDescription" name="woundDescription" rows="5" cols="50" required></textarea>
+
+        <label for="howInjuryOccured">How did the injury occur?</label>
+        <textarea id="howInjuryOccured" name="howInjuryOccured" rows="5" cols="50" required></textarea>
+
+        <label for="howInjuryTreated">How was the injury/situation treated?</label>
+        <textarea id="howInjuryTreated" name="howInjuryTreated" rows="5" cols="50" required></textarea>
+
+        <h2>Behavior Report</h2>
+
+        <label for="riskBehavior">At-risk behavior</label> <!--TODO: autofill from db query-->
+        <!--            
+        <%behavior.forEach(function(b){%>
+            <option value="<%=b.id%>"><%=b.name%></option>
+          <% });%>
+        -->
+        <select id="riskBehavior" name="riskBehavior" required>
+            <option value="Unsave behavior towards self">Unsafe behavior towards self</option>
+            <option value="Unsave behavior towards peers">Unsafe behavior towards peers</option>
+            <option value="Unsave behavior towards adults">Unsafe behavior towards adults</option>
+            <option value="Concerning behavior">Concerning behavior</option>
+        </select>
+
+        <label for="behavior">Behavior (action observed)</label>
+        <textarea id="riskBehavior" name="riskBehavior" rows="5" cols="50" required></textarea>
+
+        <p>Possible triggers</p>
+        <small>Check all that apply.</small>
+        <!--TODO: autofill the triggers from db query-->
+        <!--            
+        <%triggers.forEach(function(trigger){%>
+            <input type="checkbox" name="<%=trigger.name%>" id="<%=trigger.name%>" value="<%=trigger.id%>"/> <label for"<%=trigger.name%>"><%=trigger.description%></label>
+          <% });%>
+        -->
+
+        <p>Supports that work</p>
+        <small>Check all that apply.</small>
+        <!--TODO: autofill the supports from db query-->
+        <!--            
+        <%supports.forEach(function(support){%>
+            <input type="checkbox" name="<%=support.name%>" id="<%=support.name%>" value="<%=support.id%>"/> <label for"<%=support.name%>"><%=support.description%></label>
+          <% });%>
+        -->
+
+        <label for="recovery">Recovery</label>
+        <select id="recovery" name="recovery" required>
+        <!--TODO: autofill recovery-->
+            <!--            
+        <%recovery.forEach(function(r){%>
+            <option value="<%=r.id%>"><%=b.name%></option>
+          <% });%>
+        -->
+        </select>
+
+        <p>What is the immediate plan for support?</p>
+        <small>Check all that apply.</small>
+        <!--TODO: autofill supports that work-->
+        <!--            
+        <%planSupport.forEach(function(support){%>
+            <input type="checkbox" name="<%=support.name%>" id="<%=support.name%>" value="<%=support.id%>"/> <label for"<%=support.name%>"><%=support.description%></label>
+          <% });%>
+        -->
+        <!--TODO: how to add other "custom field"-->
+
+        <p>What are the next steps?</p>
+        <small>Check all that apply.</small>
+        <!--TODO: autofill next steps-->
+        <!--            
+        <%steps.forEach(function(step){%>
+            <input type="checkbox" name="<%=step.name%>" id="<%=step.name%>" value="<%=step.id%>"/> <label for"<%=step.name%>"><%=step.description%></label>
+          <% });%>
+        -->
+        <!--TODO: how to add other "custom field"-->
+
+        <label for="incidentDescription">Description of incident (ABCs of behavior): How was the situation treated? Whatare the methods of prevention going to be?</label>
+        <textarea id="incidentDescription" name="incidentDescription"rows="5" cols="50" required></textarea>
+
+        <h2>Manager/Guardian Review</h2>
+
+        <label for="managerSignature">Manager/Trainer Signature</label>
+        <input type="text" id="managerSignature" name="managerSignature" required/>
+        
+        <label for="parentSignature">Parent/Guardian Signature</label>
+        <input type="text" id="parentSignature" name="parentSignature" required/>
+
+        <label for="parentFeedback">Parent/Guardian Feedback/Questions</label>
+        <input type="text" id="parentSignature" name="parentSignature" required/>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+      </form>
+    </main>
+
+    <%- include('partials/footer.ejs') %>
+  </body>
+
+  </html>
