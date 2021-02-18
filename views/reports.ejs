@@ -1,24 +1,26 @@
 <%- include('partials/header.ejs') %>
 
   <body>
+    <script src="/js/reports.js"></script>
     <%- include('partials/nav.ejs') %>
 
     <main class="d-flex justify-content-center align-items-center">
       <h1 class="text-center">Behavior / Injury Reports</h1>
       <div>
-          <select>
-              <option value="allStudents" id="allStudents" name="allStudents">All Students</option>
+          <select id="students" name="students">
+              <option value="allStudents">All Students</option>
               <!--
                   <%students.forEach(function(student){%>
                     <option value="<%=student.id"><%=student.name%></option>}
               -->
           </select>
-          <input type="datetime-local" id="dateTime"/>
-          <button class="btn btn-lg btn-primary btn-block">Show Reports</button>
+          <input type="datetime-local" id="startDateTime"/>
+          <input type="datetime-local" id="endDateTime"/>
+          <button id='showReports' class="btn btn-lg btn-primary btn-block">Show Reports</button>
       </div>
       <div id="reports">
         <table id="reportTable">
-            <tr>
+            <tr id="header">
                 <th>Child's Name</th>
                 <th>Email</th>
                 <th>Date</th>
@@ -41,7 +43,17 @@
                 <th>Manager Signature</th>
                 <th>Parent Signature</th>
                 <th>Parent Feedback</th>
+                <th>Edit</th>
             </tr>
+            <%reports.forEach(function(report){%>
+              <tr>
+                  <td><%=report.name%></td>
+                  
+                  <td>
+                    <button value='<%=report.studentID%>'>Edit</button>
+                  </td>
+              </tr>
+            <% )}; %>
         </table>
       </div>
       

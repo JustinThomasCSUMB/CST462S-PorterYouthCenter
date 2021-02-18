@@ -1,0 +1,21 @@
+<nav class="navbar navbar-dark bg-primary navbar-expand-sm mb-3">
+    <a class="navbar-brand" href="/">Porter Youth Center</a>
+    
+    <ul class="navbar-nav mr-auto">
+      <% if (authenticated) { %>
+        <li class="nav-item">
+          <a class="nav-link <%= currentRoute === '/birs' ? 'active' : '' %>" href="/birs">Birs</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link <%= currentRoute === '/service/new' ? 'active' : '' %>" href="/reports">Reports</a>
+        </li>
+      <% } %>
+    </ul>
+    
+    <!-- <% if (authenticated) { %>
+        <a class="btn btn-outline-light mr-3" href=<%= `/customer/${customerId}` %>>My Profile</a>
+        <a class="btn btn-outline-light" href="/logout">Logout</a>
+      <% } else { %>
+        <a class="btn btn-info" href="/login">Login</a>
+      <% } %> -->
+  </nav>

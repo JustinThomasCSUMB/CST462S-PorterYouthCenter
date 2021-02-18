@@ -1,6 +1,7 @@
 <%- include('partials/header.ejs') %>
 
   <body>
+    <script src="/js/birs.js"></script>
     <%- include('partials/nav.ejs') %>
 
     <main class="d-flex justify-content-center align-items-center">
@@ -15,6 +16,8 @@
         <%children.forEach(function(child){%>
             <option value="<%=child.id%>"><%=child.name%></option>
           <% });%>
+
+          when selected, auto fill the email address
         -->
 
         <label for="dateTime">Date</label>
@@ -68,8 +71,8 @@
         <label for="woundDescription">Wound Description (type,size)</label>
         <textarea id="woundDescription" name="woundDescription" rows="5" cols="50" required></textarea>
 
-        <label for="howInjuryOccured">How did the injury occur?</label>
-        <textarea id="howInjuryOccured" name="howInjuryOccured" rows="5" cols="50" required></textarea>
+        <label for="howInjuryOccurred">How did the injury occur?</label>
+        <textarea id="howInjuryOccurred" name="howInjuryOccurred" rows="5" cols="50" required></textarea>
 
         <label for="howInjuryTreated">How was the injury/situation treated?</label>
         <textarea id="howInjuryTreated" name="howInjuryTreated" rows="5" cols="50" required></textarea>
@@ -90,7 +93,7 @@
         </select>
 
         <label for="behavior">Behavior (action observed)</label>
-        <textarea id="riskBehavior" name="riskBehavior" rows="5" cols="50" required></textarea>
+        <textarea id="behavior" name="behavior" rows="5" cols="50" required></textarea>
 
         <p>Possible triggers</p>
         <small>Check all that apply.</small>
@@ -158,6 +161,7 @@
       </form>
     </main>
 
+    <input type='hidden' id='birsId' value='<%=birsId%>'/>
     <%- include('partials/footer.ejs') %>
   </body>
 
