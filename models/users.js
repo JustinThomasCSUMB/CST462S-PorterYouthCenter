@@ -1,4 +1,7 @@
-/*
+/* 
+
+DELETE
+
 const pool = require('../dbPool.js');
 const getQueryResult = require('./getQueryResult.js');
 
