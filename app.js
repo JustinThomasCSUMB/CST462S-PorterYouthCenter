@@ -2,7 +2,7 @@ const express = require('express');
 const session = require('express-session');
 //const fetch = require('node-fetch');
 const bcrypt = require('bcrypt');
-const user = require('./models/usersModel.js');
+const users = require('./models/usersModel.js');
 const birs = require('./models/birsModel.js');
 const reports = require('./models/reportsModel.js');
 const middlewares = require('./routeMiddleware.js');
@@ -42,7 +42,7 @@ app.post('/login', async(req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    const [user] = await user.getByUsername(username);
+    const [user] = await users.getByUsername(username);
     const hashedPassword = user ? user.password : '';
 
     const passwordMatch = await bcrypt.compare(password, hashedPassword);
@@ -113,8 +113,8 @@ app.put('/api/updateBirs/:id', commonUIMiddlewares, async(req, res) => {
 
 
 
-
+//process.env.PORT
 // start server
-app.listen(process.env.PORT, process.env.IP, () => { // set environment variable here
+app.listen("3030", process.env.IP, () => { // set environment variable here
     console.log('Express server is running...');
 });  

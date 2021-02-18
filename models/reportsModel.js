@@ -1,12 +1,12 @@
 const getQueryResult = require('./getQueryResults');
 
 const getReports = async(dateStart, dateEnd) => {
-  const sql = 'SELECT * FROM incidents';
+  const reportsQuery = 'SELECT * FROM incidents';
   return getQueryResult(sql);
 }
 
-const getReports = async(id) => {
-  const sql = 'SELECT * FROM incidents WHERE studentID = ?';
+const getReport = async(id) => {
+  const reportQuery = 'SELECT * FROM incidents WHERE studentID = ?';
   return getQueryResult(sql, [id]);
 }
 

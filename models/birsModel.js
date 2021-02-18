@@ -6,7 +6,7 @@ const getQueryResult = require('./getQueryResults');
  * returns all students
  */
 const getStudents = async() => {
-  const sql = 'SELECT * FROM students ORDER BY last';
+  const studentsQuery = 'SELECT * FROM students ORDER BY last';
   return getQueryResult(sql);
 }
 
@@ -15,7 +15,7 @@ const getStudents = async() => {
  * @param {id} student id
  */
 const getStudent = async(id) => {
-  const sql = 'SELECT * FROM students WHERE id = ?'
+  const studentQuery = 'SELECT * FROM students WHERE id = ?';
   return getQueryResult(sql, [id]);
 }
 
@@ -23,7 +23,7 @@ const getStudent = async(id) => {
  * returns all locations
  */
 const getLocations = async() => {
-  const sql = 'SELECT * FROM location'
+  const locationsQuery = 'SELECT * FROM location';
   return getQueryResult(sql);
 }
 
@@ -32,109 +32,99 @@ const getLocations = async() => {
  * @param {id} location id 
  */
 const getLocation = async(id) => {
-  const sql = 'SELECT * FROM location WHERE id = '
+  const locationQuery = 'SELECT * FROM location WHERE id = ?';
   return getQueryResult(sql, [id]);
 }
 
 const getChildrenPresent = async() => {
-  const sql = 'SELECT * FROM children_present'
+  const childrenPresentQuery = 'SELECT * FROM children_present';
   return getQueryResult(sql);
 }
 
-/**
- * return number of children based on id
- * @param {id} location id 
- */
-const getLocation = async(id) => {
-  const sql = 'SELECT * FROM location WHERE id = '
-  return getQueryResult(sql, [id]);
-}
-
-
 const getAdultsPresent = async() => {
-  const sql = ''
+  const adultsPresentQuery = '';
   return getQueryResult(sql);
 }
 
 const getBodyPart = async() => {
-  const sql = ''
+  const bodyPartyQuery = '';
   return getQueryResult(sql);
 }
 
 const getWoundDescription = async() => {
-  const sql = ''
+  const woundQuery = '';
   return getQueryResult(sql);
 }
 
 const getInjuryOccur = async() => {
-  const sql = ''
+  const injuryQuery = '';
   return getQueryResult(sql);
 }
 
 const getSituationTreated = async() => {
-  const sql = ''
+  const treatmentQuery = '';
   return getQueryResult(sql);
 }
 
 const getRiskBehavior = async() => {
-  const sql = ''
+  const riskQuery = '';
   return getQueryResult(sql);
 }
 
 const getBehavior = async() => {
-  const sql = ''
+  const behaviorQuery = '';
   return getQueryResult(sql);
 }
 
 const getTriggers = async() => {
-  const sql = ''
+  const triggersQuery = '';
   return getQueryResult(sql);
 }
 
 const getSupports = async() => {
-  const sql = ''
+  const supportsQuery = '';
   return getQueryResult(sql);
 }
 
 const getRecovery = async() => {
-  const sql = ''
+  const recoveryQuery = '';
   return getQueryResult(sql);
 }
 
 const getSupportPlan = async() => {
-  const sql = ''
+  const supportPlanQuery = '';
   return getQueryResult(sql);
 }
 
 const getNextSteps = async() => {
-  const sql = ''
+  const nextStepsQuery = '';
   return getQueryResult(sql);
 }
 
 const getIncidentDescription = async() => {
-  const sql = ''
+  const incidentDescQuery = '';
   return getQueryResult(sql);
 }
 
 const getManagerSignature = async() => {
-  const sql = ''
+  const managerSigQuery = '';
   return getQueryResult(sql);
 }
 
 const getParentSignature = async() => {
-  const sql = ''
+  const parenetSigQuery = '';
   return getQueryResult(sql);
 }
 
 const getParentFeedback = async() => {
-  const sql = ''
+  const parentFeedbackQuery = '';
   return getQueryResult(sql);
 }
 
 // update birs
 const updateBirsReport = async(sql, params) => {
-  const sql = ''
-  return getQueryResult(sql, params)
+  const birsQuery = '';
+  return getQueryResult(sql, params);
 }
 
 module.exports = {

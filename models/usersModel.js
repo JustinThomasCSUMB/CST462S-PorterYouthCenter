@@ -1,7 +1,7 @@
-const getQueryResult = require('./getQueryResult.js');
+const getQueryResult = require('./getQueryResults');
 
-const getByUsername = (username) => {
-  const sql = 'SELECT * FROM uers WHERE email = ?';
+const getByUsername = async (username) => {
+  let sql = 'SELECT * FROM staff WHERE email = ?';
   return getQueryResult(sql, [username]);
 }
 
