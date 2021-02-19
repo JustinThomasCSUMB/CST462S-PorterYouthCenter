@@ -4,14 +4,14 @@
     <%- include('partials/nav.ejs') %>
 
     <main class="d-flex justify-content-center align-items-center">
-    <h1 class="text-center">Login</h1>
+    <h1  class="h3 mb-3 font-weight-normal text-center">Login</h1>
     <form id="login-form" method="POST">        
         
         <label for="username">Username</label>
-        <input type="text" id="username" name="username" placeholder="User Name" type="text" required/>
+        <input class="form-control mb-3" type="text" id="username" name="username" placeholder="User Name" type="text" required/>
         
         <label for="password">Password</label>
-        <input type="text" id="password" name="username" placeholder="password" type="password"/>
+        <input class="form-control mb-3" type="text" id="password" name="password" placeholder="password" type="password"/>
         
         <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
     </form>

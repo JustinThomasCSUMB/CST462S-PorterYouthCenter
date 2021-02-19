@@ -7,7 +7,7 @@ const birs = require('./models/birsModel.js');
 const reports = require('./models/reportsModel.js');
 const middlewares = require('./routeMiddleware.js');
 //const pool = require('./dbPool.js');
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 
 require('dotenv').config(); // process.env variables
 
@@ -15,7 +15,7 @@ require('dotenv').config(); // process.env variables
 const commonUIMiddlewares = [middlewares.appLocals];
 const app = express();
 
-app.use(bodyParser.urlencoded({exteded: true}));
+app.use(bodyParser.urlencoded({ exteded: true }));
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
@@ -65,7 +65,7 @@ app.get('/logout', (req, res) => {
 
 // birs page
 app.get('/birs', commonUIMiddlewares, async(req, res) => {
-    let students = await birs.getStudents();
+    //let students = await birs.getStudents();
 
     res.render('birs', {birsId:''})
 });
