@@ -15,13 +15,9 @@
           <select id="riskBehavior" name="riskBehavior" required>
             <%behavior.forEach(function(b){%>
               <option value="<%=b.id%>">
-                <%=b.name%>
+                <%=b.description%>
               </option>
               <% });%>
-                <!-- <option value="Unsave behavior towards self">Unsafe behavior towards self</option>
-            <option value="Unsave behavior towards peers">Unsafe behavior towards peers</option>
-            <option value="Unsave behavior towards adults">Unsafe behavior towards adults</option>
-            <option value="Concerning behavior">Concerning behavior</option> -->
           </select>
 
           <label for="behavior">Behavior (action observed)</label>
@@ -30,22 +26,22 @@
           <p>Possible triggers</p>
           <small>Check all that apply.</small>
           <%triggers.forEach(function(trigger){%>
-            <input type="checkbox" name="<%=trigger.name%>" id="<%=trigger.name%>" value="<%=trigger.id%>" />
-            <label for="<%=trigger.name%>"><%=trigger.description%></label>
+            <input type="checkbox" name="<%=trigger.description%>" id="<%=trigger.description%>" value="<%=trigger.id%>" />
+            <label for="<%=trigger.description%>"><%=trigger.description%></label>
           <% });%>
 
           <p>Supports that work</p>
           <small>Check all that apply.</small>
           <%supports.forEach(function(support){%>
-            <input type="checkbox" name="<%=support.name%>" id="<%=support.name%>" value="<%=support.id%>" />
-            <label for="<%=support.name%>"><%=support.description%></label>
+            <input type="checkbox" name="<%=support.description%>" id="<%=support.description%>" value="<%=support.id%>" />
+            <label for="<%=support.description%>"><%=support.description%></label>
           <% });%>
 
           <label for="recovery">Recovery</label>
           <select id="recovery" name="recovery" required>
             <%recovery.forEach(function(r){%>
               <option value="<%=r.id%>">
-                <%=b.name%>
+                <%=r.description%>
               </option>
               <% });%>
           </select>
@@ -53,8 +49,8 @@
           <p>What is the immediate plan for support?</p>
           <small>Check all that apply.</small>
           <%planSupport.forEach(function(support){%>
-            <input type="checkbox" name="<%=support.name%>" id="<%=support.name%>" value="<%=support.id%>" />
-            <label for="<%=support.name%>"><%=support.description%></label>
+            <input type="checkbox" name="<%=support.description%>" id="<%=support.description%>" value="<%=support.id%>" />
+            <label for="<%=support.description%>"><%=support.description%></label>
           <% });%>
 
           <!--TODO: how to add other "custom field"-->
@@ -63,8 +59,8 @@
           <small>Check all that apply.</small>
 
           <%steps.forEach(function(step){%>
-            <input type="checkbox" name="<%=step.name%>" id="<%=step.name%>" value="<%=step.id%>" />
-            <label for="<%=step.name%>"><%=step.description%></label>
+            <input type="checkbox" name="<%=step.description%>" id="<%=step.description%>" value="<%=step.id%>" />
+            <label for="<%=step.description%>"><%=step.description%></label>
           <% });%>
           <!--TODO: how to add other "custom field"-->
 

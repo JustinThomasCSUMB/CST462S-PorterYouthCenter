@@ -14,18 +14,8 @@
             <label for="bodyPart">Part of body injured</label>
             <select id="bodyPart" name="bodyPart" required>
               <%bodyPart.forEach(function(part){%>
-                <option value="<%=part.id%>"><%=part.name%></option>
+                <option value="<%=part.id%>"><%=part.description%></option>
               <% });%>
-              <!-- <option value="Head/Face">Head/Face</option>
-              <option value="Neck">Neck</option>
-              <option value="Chest/Stomach">Chest/Stomach</option>
-              <option value="Arm">Arm</option>
-              <option value="Hand">Hand</option>
-              <option value="Back">Back</option>
-              <option value="Genitals">Genitals</option>
-              <option value="Leg">Leg</option>
-              <option value="Foot">Foot</option>
-              <option value="Other">Other</option> -->
             </select>
 
             <label for="woundDescription">Wound Description (type,size)</label>

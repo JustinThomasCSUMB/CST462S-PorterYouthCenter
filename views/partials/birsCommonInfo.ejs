@@ -2,12 +2,11 @@
 <input id="email" name="email" type="text" required />
 
 <label for="childName">Child's Name</label>
-<input id="childName" name="childName" type="text" required />
-<%children.forEach(function(child){%>
-  <option value="<%=child.id%>">
-    <%=child.name%>
-  </option>
-<% });%>
+<select id="children" name="children" required> 
+  <%children.forEach(function(child){%>
+    <option value="<%=child.id%>"><%=child.first + " " + child.last%></option><% });%>
+</select>
+
     <!--
   when selected, auto fill the email address
 -->
@@ -18,28 +17,15 @@
 <label for="staffName">Staff Name</label>
 <select id="staffName" name="staffName" required>
   <%staff.forEach(function(s){%>
-    <option value="<%=s.id%>">
-      <%=s.name%>
-    </option>
-  <% });%>
+    <option value="<%=s.id%>"><%=s.first + " " + s.last%></option><% });%>
 </select>
 
 <label for="location">Where did the accident/incident occur?</label>
-<select id="location" name="location" required></select>
-<%locations.forEach(function(loc){%>
-  <option value="<%=loc.id%>">
-    <%=loc.name%>
-  </option>
-<% });%>
-    <!-- 
-<option value="Kinder Room">Kinder Room</option>
-<option value="Lounge">Lounge</option>
-<option value="Playground">Playground</option>
-<option value="Gym">Gym</option>
-<option value="Computer Lab">Computer Lab</option>
-<option value="Stage">Stage</option>
-<option value="Other">Other</option> -->
-</select>
+  <select id="location" name="location" required>   
+    <%location.forEach(function(loc){%>
+    <option value="<%=loc.id%>"><%=loc.description%></option>
+    <% });%>
+  </select>
 
 <label for="numChildrenPresent">How many children were present at the time of the accident/incident?</label>
 <select id="numChildrenPresent" name="numChildrenPresent" required>

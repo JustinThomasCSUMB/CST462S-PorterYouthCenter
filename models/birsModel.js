@@ -1,5 +1,11 @@
 const getQueryResult = require('./getQueryResults');
 
+async function getSections(section) {
+  const sql = `SELECT * FROM  ${section}`;
+  return await getQueryResult(sql);
+}
+
+
 //TODO: fill in all the single requests
 
 /**
@@ -160,7 +166,8 @@ module.exports = {
   getManagerSignature,
   getParentSignature,
   getParentFeedback,
-  getBirsParams
+  getBirsParams,
+  getSections
   // fill in the services
 }
 

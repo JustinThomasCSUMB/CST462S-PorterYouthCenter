@@ -15,7 +15,7 @@ require('dotenv').config(); // process.env variables
 const commonUIMiddlewares = [middlewares.appLocals];
 const app = express();
 
-app.use(bodyParser.urlencoded({ exteded: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
@@ -65,17 +65,26 @@ app.get('/logout', (req, res) => {
 
 // birs injury 
 app.get('/birs/injury', commonUIMiddlewares, async(req, res) => {
-    let children = {};
-    let staff = {};
-    let location = {};
+
+    let sections = ["location", "bodypart", "student"];
+    let sectionData = [];
+
+    for (const i of sections) {
+        sectionData[i] = await birs.getSections(i);
+    }
+
+    let location = sectionData['location'];
+    let bodypart = sectionData['bodypart'];
+    let children = sectionData['student'];
 
     res.render('birsInjury', {
         birsId: '',
         email: "myemail@mail.com",
         children: children,
-        staff: staff,
+        //staff: staff,
+        staff: children,
         location: location,
-        bodyPart: {}
+        bodyPart: bodypart
     });
 });
 
@@ -98,21 +107,28 @@ app.get('/birs/injury/:id', commonUIMiddlewares, async(req, res) => {
 
 // birs behavior 
 app.get('/birs/behavior', commonUIMiddlewares, async(req, res) => {
-    let children = {};
-    let staff = {};
-    let location = {};
-    let behavior = {};
-    let triggers = {};
-    let supports = {};
-    let recovery = {};
-    let planSupport = {};
-    let steps = {};
+
+    let sections = ["location", "student", "behavior", "possibletrigger", "supportplan", "support", "recovery", "nextsteps"];
+    let sectionData = [];
+    
+    for (const i of sections) {
+        sectionData[i] = await birs.getSections(i);
+    }
+
+    let location = sectionData['location'];
+    let behavior = sectionData['behavior'];
+    let children = sectionData['student'];
+    let triggers = sectionData['possibletrigger'];
+    let supports = sectionData['support'];
+    let recovery = sectionData['recovery'];    
+    let planSupport = sectionData['supportplan']; 
+    let steps = sectionData['nextsteps']; 
 
     res.render('birsBehavior', {
         birsId: '',
         email: "myemail@mail.com",
         children: children,
-        staff: staff,
+        staff: children,
         location: location,
         behavior: behavior,
         triggers: triggers,
@@ -210,6 +226,6 @@ app.put('/api/updateBehaviorBirs/:id', commonUIMiddlewares, async(req, res) => {
 
 //process.env.PORT
 // start server
-app.listen("3030", process.env.IP, () => { // set environment variable here
+app.listen("8080", process.env.IP, () => { // set environment variable here
     console.log('Express server is running...');
 });  
