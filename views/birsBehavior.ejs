@@ -1,0 +1,84 @@
+<%- include('partials/header.ejs') %>
+
+  <body>
+    <script src="/js/birs.js"></script>
+    <%- include('partials/birsCommonInfo.ejs') %>
+
+      <main class="d-flex justify-content-center align-items-center">
+        <h1>Behavior Report</h1>
+        <form id="birs-form" method="POST">
+          <h2>Student Info</h2>
+
+          <%- include('partials/birsCommonInfo.ejs') %>
+
+          <label for="riskBehavior">At-risk behavior</label>
+          <select id="riskBehavior" name="riskBehavior" required>
+            <%behavior.forEach(function(b){%>
+              <option value="<%=b.id%>">
+                <%=b.name%>
+              </option>
+              <% });%>
+                <!-- <option value="Unsave behavior towards self">Unsafe behavior towards self</option>
+            <option value="Unsave behavior towards peers">Unsafe behavior towards peers</option>
+            <option value="Unsave behavior towards adults">Unsafe behavior towards adults</option>
+            <option value="Concerning behavior">Concerning behavior</option> -->
+          </select>
+
+          <label for="behavior">Behavior (action observed)</label>
+          <textarea id="behavior" name="behavior" rows="5" cols="50" required></textarea>
+
+          <p>Possible triggers</p>
+          <small>Check all that apply.</small>
+          <%triggers.forEach(function(trigger){%>
+            <input type="checkbox" name="<%=trigger.name%>" id="<%=trigger.name%>" value="<%=trigger.id%>" />
+            <label for="<%=trigger.name%>"><%=trigger.description%></label>
+          <% });%>
+
+          <p>Supports that work</p>
+          <small>Check all that apply.</small>
+          <%supports.forEach(function(support){%>
+            <input type="checkbox" name="<%=support.name%>" id="<%=support.name%>" value="<%=support.id%>" />
+            <label for="<%=support.name%>"><%=support.description%></label>
+          <% });%>
+
+          <label for="recovery">Recovery</label>
+          <select id="recovery" name="recovery" required>
+            <%recovery.forEach(function(r){%>
+              <option value="<%=r.id%>">
+                <%=b.name%>
+              </option>
+              <% });%>
+          </select>
+
+          <p>What is the immediate plan for support?</p>
+          <small>Check all that apply.</small>
+          <%planSupport.forEach(function(support){%>
+            <input type="checkbox" name="<%=support.name%>" id="<%=support.name%>" value="<%=support.id%>" />
+            <label for="<%=support.name%>"><%=support.description%></label>
+          <% });%>
+
+          <!--TODO: how to add other "custom field"-->
+
+          <p>What are the next steps?</p>
+          <small>Check all that apply.</small>
+
+          <%steps.forEach(function(step){%>
+            <input type="checkbox" name="<%=step.name%>" id="<%=step.name%>" value="<%=step.id%>" />
+            <label for="<%=step.name%>"><%=step.description%></label>
+          <% });%>
+          <!--TODO: how to add other "custom field"-->
+
+          <label for="incidentDescription">Description of incident (ABCs of behavior): How was the
+            situation treated? Whatare the methods of prevention going to be?</label>
+          <textarea id="incidentDescription" name="incidentDescription" rows="5" cols="50" required></textarea>
+
+          <h2>Manager/Guardian Review</h2>
+          <%- include('partials/birsSignatures.ejs') %>
+
+        </form>
+      </main>
+      <input type='hidden' id='birsId' value='<%=birsId%>' />
+      <%- include('partials/footer.ejs') %>
+  </body>
+
+  </html>

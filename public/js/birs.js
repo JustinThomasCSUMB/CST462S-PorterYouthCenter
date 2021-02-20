@@ -2,12 +2,12 @@ const { json } = require("express");
 
 $(document).ready(() => {
 
-    $('#submit').on('click', submitBirs);
-
+    $('#submit').on('click', submitBirs); // may want form submit for instead doesn't really matter though
+    
     /**
-     * calls api to submit the birs
+     * retuns object containing shared birs information
      */
-    async function submitBirs(){
+    function getCommonBirsParams() {
         const childId = $('#childName').val();
         const email = $('#email').val();
         const dateTime = $('#dateTime').val();
@@ -15,56 +15,11 @@ $(document).ready(() => {
         const locationId = $('#location').val();
         const numChildren = $('#numChildrenPresent').val();
         const numAdults = $('#numAdultsPresent').val();
-        const bodyPartId = $('#bodyPart').val();
-        const woundDesc = $('#woundDescription').val();
-        const howOccur = $('#howInjuryOccurred').val();
-        const howTreated = $('#howInjuryTreated').val();
-        const riskBehaviorId = $('#riskBehavior').val();
-        const behaviorId = $('#behavior').val();
-        // const triggers = //get all that apply
-        // const supports = // get all that apply
-        const recoveryId = $('#recovery').val();
-        // const supportPlanId = $('#') // get all that apply
-        // const nextSteps = // get all that apply
-        const incidentDesc = $('#incidentDescription').val();
         const managerSig = $('#managerSignature').val();
         const parentSig = $('#parentSignature').val();
         const parentFeedback = $('#parentFeedback');
 
-        let response;
-        let birsId = $('#birsId').val();
-
-        if(birsId == ''){
-            const url = '/api/submitBirs';
-            const params = getParams();
-            response = await fetch(url,
-                {
-                    method: 'POST',
-                    body: params,
-                    headers: {'Content-Type': 'application/json'}
-                });
-        }else{
-            const url = `/api/updateBirs/${birsId}`;
-            const params = getParams();
-            response = await fetch(url,
-                {
-                    method: 'PUT',
-                    body: params,
-                    headers: {'Content-Type': 'application/json'}
-                });
-        }        
-            
-        let data = await response.json();
-
-    }// submitBirs
-
-    /**
-     * creats json paramater list for api calls
-     */
-    function getParams(){
-
-        const params = JSON.stringify(
-        {
+        return {
             childId: childId,
             email: email,
             dateTime: dateTime,
@@ -72,22 +27,85 @@ $(document).ready(() => {
             locationId: locationId,
             numChildren: numChildren,
             numAdults: numAdults,
-            bodyPartId: bodyPartId,
-            woundDesc: woundDesc,
-            howOccur: howOccur,
-            howTreated: howTreated,
-            riskBehaviorId: riskBehaviorId,
-            behaviorId: behaviorId,
-
-            recoveryId: recoveryId,
-            
-            incidentDesc: incidentDesc,
             managerSig: managerSig,
             parentSig: parentSig,
             parentFeedback: parentFeedback
-        });
+        };
+    }// getCommonBirsParams
+
+    /**
+     * gathers all info needed to submit Behavior Birs
+     */
+    function getBehaviorBirsParams(){
+        let params = getCommonBirsParams(); 
+        params.riskBehaviorId = $('#riskBehavior').val();
+        params.behaviorId = $('#behavior').val();
+        // const triggers = //get all that apply
+        // const supports = // get all that apply
+        params.recoveryId = $('#recovery').val();
+        // const supportPlanId = $('#') // get all that apply
+        // const nextSteps = // get all that apply
+        params.incidentDesc = $('#incidentDescription').val();
 
         return params;
-    }// getParams
+    }
+
+    /**
+     * gathers all info needed to submit Injury Birs
+     */
+    function getInjuryBirsParams(){
+        let params = getCommonBirsParams();
+        params.bodyPartId = $('#bodyPart').val();
+        params.woundDesc = $('#woundDescription').val();
+        params.howOccur = $('#howInjuryOccurred').val();
+        params.howTreated = $('#howInjuryTreated').val();
+        
+        return params;
+    }
+
+    /**
+     * calls api to submit or update an injury/ behavior birs
+     */
+    async function submitBirs() {
+        let isInjury = window.location.href.toLowerCase().includes('injury') ? true : false;
+        // true if form is being edited/ birsId is not null
+        let birsId = $('#birsId').val();
+        let isEditing =  (birsId == '' || birsId == undefined || birsId == null) ? false : true;
+        let url;
+        let params;
+        let method;
+        
+        if(isInjury){
+            params = getInjuryBirsParams();
+        }else{
+            params = getBehaviorBirsParams();
+        }
+
+        if(isEditing){
+            method = 'PUT';
+            if(isInjury){
+                url = '/api/updateInjuryBirs/';
+            }else{
+                url = '/api/updateBehaviorBirs/';
+            }
+        }else{
+            method = 'POST';
+            if(isInjury){
+                url = '/api/submitInjuryBirs/';
+            }else{
+                url = '/api/submitBehaviorBirs/';
+            }
+        }
+
+        let response = await fetch(url,
+            {
+                method: method,
+                body: params,
+                headers: {'Content-Type': 'application/json'}
+            });
+      
+        let data = await response.json();
+
+    }// submitBirs
 
 });// ready

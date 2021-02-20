@@ -3,19 +3,19 @@ const getQueryResult = require('./getQueryResults');
 //TODO: fill in all the single requests
 
 /**
- * returns all students
+ * returns all children
  */
-const getStudents = async() => {
-  const studentsQuery = 'SELECT * FROM students ORDER BY last';
+const getchildren = async() => {
+  const childrenQuery = 'SELECT * FROM children ORDER BY last';
   return getQueryResult(sql);
 }
 
 /**
- * retuns student based on id
- * @param {id} student id
+ * retuns child based on id
+ * @param {id} child id
  */
-const getStudent = async(id) => {
-  const studentQuery = 'SELECT * FROM students WHERE id = ?';
+const getChild = async(id) => {
+  const childQuery = 'SELECT * FROM children WHERE id = ?';
   return getQueryResult(sql, [id]);
 }
 
@@ -127,8 +127,22 @@ const updateBirsReport = async(sql, params) => {
   return getQueryResult(sql, params);
 }
 
+const getBirsParams = async(childId) => {
+  var children;
+  var email;
+
+  if(childId == '' || childId == null){
+    children = getchild();
+  }else{
+    children
+  }
+
+  
+  return {child: children, email: email, }
+}
+
 module.exports = {
-  getStudents,
+  getchildren,
   getLocations,
   getChildrenPresent,
   getAdultsPresent,
@@ -145,7 +159,8 @@ module.exports = {
   getIncidentDescription,
   getManagerSignature,
   getParentSignature,
-  getParentFeedback
+  getParentFeedback,
+  getBirsParams
   // fill in the services
 }
 

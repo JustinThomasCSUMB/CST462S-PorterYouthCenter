@@ -63,17 +63,95 @@ app.get('/logout', (req, res) => {
     res.redirect('/');
 });
 
-// birs page
-app.get('/birs', commonUIMiddlewares, async(req, res) => {
-    //let students = await birs.getStudents();
+// birs injury 
+app.get('/birs/injury', commonUIMiddlewares, async(req, res) => {
+    let children = {};
+    let staff = {};
+    let location = {};
 
-    res.render('birs', {birsId:''})
+    res.render('birsInjury', {
+        birsId: '',
+        email: "myemail@mail.com",
+        children: children,
+        staff: staff,
+        location: location,
+        bodyPart: {}
+    });
 });
 
-// single birs report from id
-app.get('/birs/:id', [...commonUIMiddlewares, middlewares.auth], async(req, res) => {
-    
-    res.render('birs', {birsId: req.params.id});
+// birs injury by id
+// used when editing
+app.get('/birs/injury/:id', commonUIMiddlewares, async(req, res) => {
+    let children = {};
+    let staff = {};
+    let location = {};
+
+    res.render('birsInjury', {
+        birsId: req.params.id,
+        email: "myemail@mail.com",
+        children: children,
+        staff: staff,
+        location: location,
+        bodyPart: {}
+    });
+});
+
+// birs behavior 
+app.get('/birs/behavior', commonUIMiddlewares, async(req, res) => {
+    let children = {};
+    let staff = {};
+    let location = {};
+    let behavior = {};
+    let triggers = {};
+    let supports = {};
+    let recovery = {};
+    let planSupport = {};
+    let steps = {};
+
+    res.render('birsBehavior', {
+        birsId: '',
+        email: "myemail@mail.com",
+        children: children,
+        staff: staff,
+        location: location,
+        behavior: behavior,
+        triggers: triggers,
+        supports: supports,
+        recovery: recovery,
+        planSupport: planSupport,
+        steps: steps
+    });    
+});
+
+// TODO: maybe combine into one get call and pass the ID through the body params
+// could save on duplicate code
+
+// birs behavior by id
+// used when editing
+app.get('/birs/behavior/:id', commonUIMiddlewares, async(req, res) => {
+    let children = {};
+    let staff = {};
+    let location = {};
+    let behavior = {};
+    let triggers = {};
+    let supports = {};
+    let recovery = {};
+    let planSupport = {};
+    let steps = {};
+
+    res.render('birsBehavior', {
+        birsId: req.params.id,
+        email: "myemail@mail.com",
+        children: children,
+        staff: staff,
+        location: location,
+        behavior: behavior,
+        triggers: triggers,
+        supports: supports,
+        recovery: recovery,
+        planSupport: planSupport,
+        steps: steps
+    }); 
 });
 
 // gets all reports within selected date range
@@ -83,29 +161,46 @@ app.get('/reports', commonUIMiddlewares, async (req, res) => {
 });
 
 // gets all reports for specific student or all students
-app.get('/reports/:dateStart/:dateEnd/:studentId', commonUIMiddlewares, async(req, res) => {
+app.get('/reports/:startDateTime/:endDateTime/:studentId', commonUIMiddlewares, async(req, res) => {
     let studentId = req.params.studentId;
-    let allReports;
+    let injuryReports;
+    let behaviorReports;
+
     if(studentId == 'allStudents'){
-        allReports = await reports.getReports(req.params.dateStart, req,params.dateEnd);
+        injuryReports = await reports.getInjuryReports(req.params.startDateTime, req.params.endDateTime);
+        behaviorReports = await reports.getBehaviorReports(req.params.startDateTime, req.params.endDateTime);
     }else{
-        allReports = await reports.getReports(req.params.dateStart, req,params.dateEnd, studentId);
+        injuryReports = await reports.getInjuryReport(req.params.startDateTime, req.params.endDateTime, req.params.studentId);
+        behaviorReports = await reports.getBehaviorReport(req.params.startDateTime, req.params.endDateTime, req.params.studentId);
     }
 
-    res.render('reports', {reports: allReports});
+    res.render('reports', {injuryReports: injuryReports, behaviorReports: behaviorReports});
 });
 
 /***** api *****/
 
-// submit new birs
-app.post('/api/submitBirs', commonUIMiddlewares, async(req, res) => {
+// submit new behavior birs
+app.post('/api/submitBehaviorBirs', commonUIMiddlewares, async(req, res) => {
 
 }); 
 
-// update birs report, usually needed for updating signatures
-app.put('/api/updateBirs/:id', commonUIMiddlewares, async(req, res) => {
+// submit new injury birs
+app.post('/api/submitInjuryBirs', commonUIMiddlewares, async(req, res) => {
 
 });
+
+// update injury birs report, usually needed for updating signatures
+app.put('/api/updateInjuryBirs/:id', commonUIMiddlewares, async(req, res) => {
+
+});
+
+// update behavior birs report, usually needed for updating signatures
+app.put('/api/updateBehaviorBirs/:id', commonUIMiddlewares, async(req, res) => {
+
+});
+
+
+
 
 
 

@@ -18,9 +18,9 @@
           <input type="datetime-local" id="endDateTime"/>
           <button id='showReports' class="btn btn-lg btn-primary btn-block">Show Reports</button>
       </div>
-      <div id="reports">
-        <table id="reportTable">
-            <tr id="header">
+      <div id="injuryReports">
+        <table id="injuryReportTable">
+            <tr id="injuryHeader">
                 <th>Child's Name</th>
                 <th>Email</th>
                 <th>Date</th>
@@ -30,7 +30,34 @@
                 <th>Adults Present></th>
                 <th>Part Injured</th>
                 <th>Wound</th>
-                <th>How</th>
+                <th>How</th>                
+                <th>Manager Signature</th>
+                <th>Parent Signature</th>
+                <th>Parent Feedback</th>
+                <th>Edit</th>
+            </tr>
+            <%injuryReport.forEach(function(ir){%>
+              <tr>
+                  <td><%=ir.name%></td>    
+                  <!-- fill out other fields here -->
+                  <td>
+                    <button class='.editBirsButton' value='<%=report.studentID%>'>Edit</button>
+                  </td>
+              </tr>
+            <% )}; %>
+        </table>
+      </div>
+
+      <div id="behaviorReports">
+        <table id="behaviorReportTable">
+            <tr id="behaviorHeader">
+                <th>Child's Name</th>
+                <th>Email</th>
+                <th>Date</th>
+                <th>Staff's Name</th>
+                <th>Location</th>
+                <th>Children Present</th>
+                <th>Adults Present></th>
                 <th>Treated</th>
                 <th>At-risk Behavior</th>
                 <th>Behavior</th>
@@ -45,12 +72,12 @@
                 <th>Parent Feedback</th>
                 <th>Edit</th>
             </tr>
-            <%reports.forEach(function(report){%>
+            <%behaviorReport.forEach(function(br){%>
               <tr>
-                  <td><%=report.name%></td>
-                  
+                  <td><%=br.name%></td>
+                  <!--fill in other fields here-->
                   <td>
-                    <button value='<%=report.studentID%>'>Edit</button>
+                    <button class='.editBirsButton' value='<%=report.studentID%>'>Edit</button>
                   </td>
               </tr>
             <% )}; %>
