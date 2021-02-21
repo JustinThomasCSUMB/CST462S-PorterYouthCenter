@@ -220,19 +220,36 @@ app.post('/students', async(req, res) => {
     let action = req.body.action;
     let del = req.body.delete;
     let edit = req.body.edit;
+    
+    let first = req.body.firstName;
+    let last = req.body.lastName;
+    let contact = req.body.contact;
+    let email = req.body.email;
+    let id = req.body.studentID;
+    
+    console.dir(req.body);
+    
+    console.log(action);
 
     switch(action) {
         case 'modify':
             if (del) {
                 console.log("Delete ID record: " + del);
+                students.deleteStudent(del);
             }
             else if (edit) {
                 console.log("Edit ID record: " + edit);
             }
+        break;
+        case 'update':
+            console.log("Update ID: " + id);
+            students.updateStudent(id, first, last, contact, email);
             
         break;
         case 'add':
             console.log("Add new record");
+            students.createStudent(first, last, contact, email);
+        break;
     }
 
     res.redirect('/students');
