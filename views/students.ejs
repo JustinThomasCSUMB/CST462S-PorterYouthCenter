@@ -1,0 +1,58 @@
+<%- include('partials/header.ejs') %>
+
+  <body>
+    <%- include('partials/nav.ejs') %>
+
+    <main class="justify-content-center align-items-center">
+    <h1  class="h3 mb-3 font-weight-normal text-center">Login</h1>
+    <h2>Student Information</h2>
+    
+    <form id="student-add" method="POST">
+        
+        <input type="hidden" id="action" name="action" value="add" />
+
+        <label for="firstName">First Name</label>
+        <input id="firstName" name="firstName" type="text" required />
+    
+        <label for="lastName">Last Name</label>
+        <input id="lastName" name="lastName" type="text" required />
+
+        <label for="contact">Contact Name</label>
+        <input id="contact" name="contact" type="contact" required />
+        
+        <label for="email">email</label>
+        <input id="email" name="email" type="email" required />
+    
+        <button class="btn btn-lg btn-primary btn-block" type="submit" id="submit">Submit</button>
+    </form>
+
+    
+    <form id="student-list" method="POST"> 
+    <input type="hidden" id="action" name="action" value="modify" />
+    <table>
+        <tr>
+            <th>Student ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Contact Name</th>
+            <th>Contact Email</th>
+        </tr>
+        <%children.forEach(function(child){%>
+            <tr><td><%=child.studentID%></td>
+            <td><%=child.first%></td>
+            <td><%=child.last%></td>
+            <td><%=child.contactname%></td>
+            <td><%=child.email%></td></tr>
+            <td><button name='delete' value='<%=child.studentID%>' class="btn btn-lg btn-primary btn-block" type="submit">Delete</button></td>
+            <td><button name='edit' value ='<%=child.studentID%>' class="btn btn-lg btn-primary btn-block" type="submit">Edit</button></td>
+        <% });%>
+    </table>
+    </form>
+    </br>
+    
+    </main>
+
+    <%- include('partials/footer.ejs') %>
+  </body>
+
+  </html>

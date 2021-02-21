@@ -2,8 +2,9 @@
 
   <body>
     <%- include('partials/nav.ejs') %>
+    <script src="/js/login.js"></script>
 
-    <main class="d-flex justify-content-center align-items-center">
+    <main class="justify-content-center align-items-center">
     <h1  class="h3 mb-3 font-weight-normal text-center">Login</h1>
     <form id="login-form" method="POST">        
         
@@ -11,10 +12,18 @@
         <input class="form-control mb-3" type="text" id="username" name="username" placeholder="User Name" type="text" required/>
         
         <label for="password">Password</label>
-        <input class="form-control mb-3" type="text" id="password" name="password" placeholder="password" type="password"/>
+        <input class="form-control mb-3" type="text" id="password" name="password" placeholder="password" type="password" required/>
         
         <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
     </form>
+    </br>
+    
+    <div id='loginerror'>
+    <% if (loginError) { %>        
+      <h2>Login Error</h2>
+    <% } %>
+    </div>
+    
     </main>
 
     <%- include('partials/footer.ejs') %>

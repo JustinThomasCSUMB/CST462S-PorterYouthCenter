@@ -4,60 +4,51 @@
     <script src="/js/reports.js"></script>
     <%- include('partials/nav.ejs') %>
 
-    <main class="d-flex justify-content-center align-items-center">
+    <!-- <main class="d-flex justify-content-center align-items-center"> -->
+    <main>
       <h1 class="text-center">Behavior / Injury Reports</h1>
       <div>
           <select id="students" name="students">
               <option value="allStudents">All Students</option>
-              <!--
-                  <%students.forEach(function(student){%>
-                    <option value="<%=student.id"><%=student.name%></option>}
-              -->
+              <%students.forEach(function(student){%>
+              <option value="<%=student.id%>"><%=student.first + " " + student.last%></option>
+              <% });%>
           </select>
           <input type="datetime-local" id="startDateTime"/>
           <input type="datetime-local" id="endDateTime"/>
           <button id='showReports' class="btn btn-lg btn-primary btn-block">Show Reports</button>
       </div>
+      </br>
+
+      <h2>Incident Information</h2>
+      <table>
+        <th>Date</th>
+        <th>Child's Name</th>
+        <th>Staff's Name</th>
+        <th>Location</th>
+        <th>Children Present</th>
+        <th>Adults Present></th>
+      </table>
+      </br>
+      
+      <h2>Injry Incident</h2>
       <div id="injuryReports">
         <table id="injuryReportTable">
             <tr id="injuryHeader">
                 <th>Child's Name</th>
-                <th>Email</th>
-                <th>Date</th>
-                <th>Staff's Name</th>
-                <th>Location</th>
-                <th>Children Present</th>
-                <th>Adults Present></th>
                 <th>Part Injured</th>
                 <th>Wound</th>
                 <th>How</th>                
-                <th>Manager Signature</th>
-                <th>Parent Signature</th>
-                <th>Parent Feedback</th>
                 <th>Edit</th>
             </tr>
-            <%injuryReport.forEach(function(ir){%>
-              <tr>
-                  <td><%=ir.name%></td>    
-                  <!-- fill out other fields here -->
-                  <td>
-                    <button class='.editBirsButton' value='<%=report.studentID%>'>Edit</button>
-                  </td>
-              </tr>
-            <% )}; %>
         </table>
       </div>
-
+      </br>
+      
+      <h2>Behavior Incident</h2>
       <div id="behaviorReports">
-        <table id="behaviorReportTable">
+       <table id="behaviorReportTable">
             <tr id="behaviorHeader">
-                <th>Child's Name</th>
-                <th>Email</th>
-                <th>Date</th>
-                <th>Staff's Name</th>
-                <th>Location</th>
-                <th>Children Present</th>
-                <th>Adults Present></th>
                 <th>Treated</th>
                 <th>At-risk Behavior</th>
                 <th>Behavior</th>
@@ -67,23 +58,19 @@
                 <th>Support Plan</th>
                 <th>Next Steps</th>
                 <th>Descripton</th>
-                <th>Manager Signature</th>
-                <th>Parent Signature</th>
-                <th>Parent Feedback</th>
                 <th>Edit</th>
             </tr>
-            <%behaviorReport.forEach(function(br){%>
-              <tr>
-                  <td><%=br.name%></td>
-                  <!--fill in other fields here-->
-                  <td>
-                    <button class='.editBirsButton' value='<%=report.studentID%>'>Edit</button>
-                  </td>
-              </tr>
-            <% )}; %>
         </table>
       </div>
+      </br>
       
+      <h2>Parent/Guardian Review</h2>
+      <table>
+        <th>Manager Signature</th>
+        <th>Parent Signature</th>
+        <th>Parent Feedback</th>
+      </table>
+      </br>
     </main>
 
     <%- include('partials/footer.ejs') %>

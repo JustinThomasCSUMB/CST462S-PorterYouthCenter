@@ -6,6 +6,7 @@ const users = require('./models/usersModel.js');
 const birs = require('./models/birsModel.js');
 const reports = require('./models/reportsModel.js');
 const middlewares = require('./routeMiddleware.js');
+const students = require('./models/studentsModel.js');
 //const pool = require('./dbPool.js');
 const bodyParser = require('body-parser');
 
@@ -34,7 +35,7 @@ app.get('/', ...commonUIMiddlewares, (req, res) =>{
 
 // login page
 app.get('/login', commonUIMiddlewares, (req, res) => {
-    res.render('login');
+    res.render('login', { loginError: false});
 });
 
 // login, verify user
@@ -53,7 +54,7 @@ app.post('/login', async(req, res) => {
         res.redirect('/'); // Go back to home page
     }
     else {
-        res.render('login', { loginError: true })
+        res.render('login', { loginError: true, authenticated: false });
     }
 });
 
@@ -61,6 +62,31 @@ app.post('/login', async(req, res) => {
 app.get('/logout', (req, res) => {
     req.session.destroy();
     res.redirect('/');
+});
+
+app.get('/staff', commonUIMiddlewares, async (req, res) => {
+
+       res.render('staff');
+});
+
+app.post('/staff', async (req, res) => {
+
+    const userName = req.body.userName;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const password = req.body.password;
+    const email = req.body.email;
+
+    console.dir(req.body);
+    
+    bcrypt.hash(password, 10, function(err, hash) {
+        // Store hash in your password DB.
+        console.log("Name: " + firstName + " " + lastName);
+        users.createUser(userName, hash, firstName, lastName, email);
+    });
+
+    res.redirect('/logout');
+
 });
 
 // birs injury 
@@ -172,8 +198,44 @@ app.get('/birs/behavior/:id', commonUIMiddlewares, async(req, res) => {
 
 // gets all reports within selected date range
 app.get('/reports', commonUIMiddlewares, async (req, res) => {
-    let students = await birs.getStudents();
+
+    let students = await birs.getSections("student");
+
+    //console.dir(students);
+
     res.render('reports', {students: students});
+});
+
+app.get('/students', commonUIMiddlewares, async (req, res) => {
+
+    let students = await birs.getSections("student");
+
+    //console.dir(students);
+
+    res.render('students', {children: students});
+});
+
+app.post('/students', async(req, res) => {
+    
+    let action = req.body.action;
+    let del = req.body.delete;
+    let edit = req.body.edit;
+
+    switch(action) {
+        case 'modify':
+            if (del) {
+                console.log("Delete ID record: " + del);
+            }
+            else if (edit) {
+                console.log("Edit ID record: " + edit);
+            }
+            
+        break;
+        case 'add':
+            console.log("Add new record");
+    }
+
+    res.redirect('/students');
 });
 
 // gets all reports for specific student or all students
