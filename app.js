@@ -92,7 +92,7 @@ app.post('/staff', async (req, res) => {
 // birs injury 
 app.get('/birs/injury', commonUIMiddlewares, async(req, res) => {
 
-    let sections = ["location", "bodypart", "student"];
+    let sections = ["location", "bodypart", "student", "staff"];
     let sectionData = [];
 
     for (const i of sections) {
@@ -102,13 +102,13 @@ app.get('/birs/injury', commonUIMiddlewares, async(req, res) => {
     let location = sectionData['location'];
     let bodypart = sectionData['bodypart'];
     let children = sectionData['student'];
+    let staff = sectionData['staff'];
 
     res.render('birsInjury', {
         birsId: '',
         email: "myemail@mail.com",
         children: children,
-        //staff: staff,
-        staff: children,
+        staff: staff,
         location: location,
         bodyPart: bodypart
     });
@@ -134,7 +134,7 @@ app.get('/birs/injury/:id', commonUIMiddlewares, async(req, res) => {
 // birs behavior 
 app.get('/birs/behavior', commonUIMiddlewares, async(req, res) => {
 
-    let sections = ["location", "student", "behavior", "possibletrigger", "supportplan", "support", "recovery", "nextsteps"];
+    let sections = ["location", "student", "behavior", "possibletrigger", "supportplan", "support", "recovery", "nextsteps", "staff"];
     let sectionData = [];
     
     for (const i of sections) {
@@ -149,12 +149,13 @@ app.get('/birs/behavior', commonUIMiddlewares, async(req, res) => {
     let recovery = sectionData['recovery'];    
     let planSupport = sectionData['supportplan']; 
     let steps = sectionData['nextsteps']; 
+    let staff = sectionData['staff']; 
 
     res.render('birsBehavior', {
         birsId: '',
         email: "myemail@mail.com",
         children: children,
-        staff: children,
+        staff: staff,
         location: location,
         behavior: behavior,
         triggers: triggers,
@@ -196,22 +197,15 @@ app.get('/birs/behavior/:id', commonUIMiddlewares, async(req, res) => {
     }); 
 });
 
-// gets all reports within selected date range
 app.get('/reports', commonUIMiddlewares, async (req, res) => {
 
     let students = await birs.getSections("student");
-
-    //console.dir(students);
-
     res.render('reports', {students: students});
 });
 
 app.get('/students', commonUIMiddlewares, async (req, res) => {
 
     let students = await birs.getSections("student");
-
-    //console.dir(students);
-
     res.render('students', {children: students});
 });
 
@@ -253,6 +247,55 @@ app.post('/students', async(req, res) => {
     }
 
     res.redirect('/students');
+});
+
+app.post('/birs/injury', commonUIMiddlewares, async(req, res) => {
+    
+    console.dir(req.body);
+    
+    let email = req.body.email;
+    let studentID = req.body.children;
+    let staffID = req.body.staffName;
+    let location = req.body.location;
+    let date = req.body.dateTime;
+    let nChildren  = req.body.numChildrenPresent;
+    let nAdults = req.body.numAdultsPresent;
+    let bodypart = req.body.bodyPart;
+    let injurydescription = req.body.woundDescription;
+    let injurycause = req.body.howInjuryOccurred;
+    let injurytreatment = req.body.howInjuryTreated;    
+
+    let result = await birs.createInjury(email, studentID, date, staffID, location, nChildren, 
+	nAdults, bodypart, injurydescription, injurycause, injurytreatment);
+
+    console.log("Incident ID: " + result.insertId);
+
+    res.redirect('/birs/injury');
+});
+
+app.post('/birs/behavior', commonUIMiddlewares, async(req, res) => {
+    
+    let email = req.body.email;
+    let studentID = req.body.children;
+    let staffID = req.body.staffName;
+    let location = req.body.location;
+    let date = req.body.dateTime;
+    let nChildren  = req.body.numChildrenPresent;
+    let nAdults = req.body.numAdultsPresent;
+	let riskBehavior = req.body.riskBehavior;
+	let behavior = req.body.behavior;
+	let recovery = req.body.recovery;
+	let incidentDescription = req.body.incidentDescription;
+	let managerSignature = req.body.gerSignature;
+    
+    let result = await birs.createBehavior(email, studentID, date, staffID, location, nChildren, 
+	nAdults, riskBehavior, behavior, recovery, incidentDescription, managerSignature);
+
+    console.log("Incident ID: " + result.insertId);
+    
+    //deal with other fields once incident ID is obtained
+
+    res.redirect('/birs/injury');
 });
 
 // gets all reports for specific student or all students

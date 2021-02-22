@@ -5,6 +5,33 @@ async function getSections(section) {
   return await getQueryResult(sql);
 }
 
+const createInjury = async (email, child, datetime, staffName, location, numChildren, 
+                            numAdults, bodyPart, description, occurred, treated) => {
+
+  let sql = "INSERT INTO INCIDENT (email, studentID, date, staffID, location,  \
+  nChildren, nAdults, bodypart, injurydescription, injurycause, injurytreatment) \
+  values (?,?,?,?,?,?,?,?,?,?,?)";
+
+  let sqlParams = [email, child, datetime, staffName, location, numChildren,
+                  numAdults, bodyPart, description, occurred, treated];
+                  
+  console.log(sql + " " + sqlParams);
+  
+  return getQueryResult(sql, sqlParams);
+};
+
+const createBehavior = async (email, studentID, date, staffID, location, nChildren, 
+	nAdults, riskBehavior, behavior, recovery, incidentDescription, managerSignature) => {
+
+	let sql = "INSERT INTO INCIDENT (email, studentID, date, staffID, location,  \
+	nChildren, nAdults, behavior, behaviordescription, recovery, description) \
+	values (?,?,?,?,?,?,?,?,?,?,?)";
+	  
+	let sqlParams = [email, studentID, date, staffID, location, nChildren,
+                  nAdults, riskBehavior, behavior, recovery, incidentDescription];
+
+  return getQueryResult(sql, sqlParams);
+};
 
 //TODO: fill in all the single requests
 
@@ -167,7 +194,9 @@ module.exports = {
   getParentSignature,
   getParentFeedback,
   getBirsParams,
-  getSections
+  getSections,
+  createInjury, 
+  createBehavior
   // fill in the services
 }
 

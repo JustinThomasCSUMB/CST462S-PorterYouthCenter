@@ -3,9 +3,7 @@
   <body>
     <script src="/js/birs.js"></script>
     <%- include('partials/nav.ejs') %>
-    <%- include('partials/birsCommonInfo.ejs') %>
 
-      <main class="d-flex justify-content-center align-items-center">
         <h1>Behavior Report</h1>
         <form id="birs-form" method="POST">
           <h2>Student Info</h2>
@@ -14,64 +12,70 @@
 
           <label for="riskBehavior">At-risk behavior</label>
           <select id="riskBehavior" name="riskBehavior" required>
+            <option>At-Risk Behavior</option>
             <%behavior.forEach(function(b){%>
               <option value="<%=b.id%>">
                 <%=b.description%>
               </option>
               <% });%>
           </select>
+          </br>
 
           <label for="behavior">Behavior (action observed)</label>
           <textarea id="behavior" name="behavior" rows="5" cols="50" required></textarea>
-
+          </br>
+          
           <p>Possible triggers</p>
           <small>Check all that apply.</small>
           <%triggers.forEach(function(trigger){%>
-            <input type="checkbox" name="<%=trigger.description%>" id="<%=trigger.description%>" value="<%=trigger.id%>" />
-            <label for="<%=trigger.description%>"><%=trigger.description%></label>
+            <input type="checkbox" name="possibleTrigger" id="possibleTrigger" value="<%=trigger.id%>" />
+            <label for="possibleTrigger"><%=trigger.description%></label>
           <% });%>
+          </br>
 
           <p>Supports that work</p>
           <small>Check all that apply.</small>
           <%supports.forEach(function(support){%>
-            <input type="checkbox" name="<%=support.description%>" id="<%=support.description%>" value="<%=support.id%>" />
-            <label for="<%=support.description%>"><%=support.description%></label>
+            <input type="checkbox" name="supportthatworks" id="supportthatworks" value="<%=support.id%>" />
+            <label for="supportthatworks"><%=support.description%></label>
           <% });%>
-
+          </br>
+          
           <label for="recovery">Recovery</label>
           <select id="recovery" name="recovery" required>
+            <option>Recovery</option>
             <%recovery.forEach(function(r){%>
               <option value="<%=r.id%>">
                 <%=r.description%>
               </option>
               <% });%>
           </select>
-
+          </br>
           <p>What is the immediate plan for support?</p>
           <small>Check all that apply.</small>
           <%planSupport.forEach(function(support){%>
-            <input type="checkbox" name="<%=support.description%>" id="<%=support.description%>" value="<%=support.id%>" />
-            <label for="<%=support.description%>"><%=support.description%></label>
+            <input type="checkbox" name="plan" id="plan" value="<%=support.id%>" />
+            <label for="plan"><%=support.description%></label>
           <% });%>
-
-          <!--TODO: how to add other "custom field"-->
+          </br>
 
           <p>What are the next steps?</p>
           <small>Check all that apply.</small>
 
           <%steps.forEach(function(step){%>
-            <input type="checkbox" name="<%=step.description%>" id="<%=step.description%>" value="<%=step.id%>" />
-            <label for="<%=step.description%>"><%=step.description%></label>
+            <input type="checkbox" name="nextsteps" id="nextsteps" value="<%=step.id%>" />
+            <label for="nextsteps"><%=step.description%></label>
           <% });%>
-          <!--TODO: how to add other "custom field"-->
+          </br>
 
           <label for="incidentDescription">Description of incident (ABCs of behavior): How was the
             situation treated? Whatare the methods of prevention going to be?</label>
           <textarea id="incidentDescription" name="incidentDescription" rows="5" cols="50" required></textarea>
-
+          </br>
           <h2>Manager/Guardian Review</h2>
           <%- include('partials/birsSignatures.ejs') %>
 
+          <button class="btn btn-lg btn-primary btn-block" type="submit" id="submit">Submit</button>
         </form>
       </main>
       <input type='hidden' id='birsId' value='<%=birsId%>' />

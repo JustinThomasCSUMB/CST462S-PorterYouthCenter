@@ -4,7 +4,7 @@
     <script src="/js/birs.js"></script>
     <%- include('partials/nav.ejs') %>
 
-      <main class="d-flex justify-content-center align-items-center">
+      <main class="justify-content-center align-items-center">
         <h1>Injury Report</H1>
         <form id="birs-form" method="POST">
           <h2>Student Info</h2>
@@ -17,16 +17,20 @@
                 <option value="<%=part.id%>"><%=part.description%></option>
               <% });%>
             </select>
-
+            </br>
+            
             <label for="woundDescription">Wound Description (type,size)</label>
             <textarea id="woundDescription" name="woundDescription" rows="5" cols="50" required></textarea>
-
+            </br>
+            
             <label for="howInjuryOccurred">How did the injury occur?</label>
             <textarea id="howInjuryOccurred" name="howInjuryOccurred" rows="5" cols="50" required></textarea>
-
+            </br>
+            
             <label for="howInjuryTreated">How was the injury/situation treated?</label>
             <textarea id="howInjuryTreated" name="howInjuryTreated" rows="5" cols="50" required></textarea>
-
+            </br>
+            
             <button class="btn btn-lg btn-primary btn-block" type="submit" id="submit">Submit</button>
         </form>
       </main>

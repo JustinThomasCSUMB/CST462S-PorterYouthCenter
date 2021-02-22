@@ -1,42 +1,51 @@
 <label for="email">Email Address</label>
 <input id="email" name="email" type="text" required />
+</br>
 
 <label for="childName">Child's Name</label>
 <select id="children" name="children" required> 
+  <option>Child Name</option>
   <%children.forEach(function(child){%>
-    <option value="<%=child.id%>"><%=child.first + " " + child.last%></option><% });%>
+    <option value="<%=child.studentID%>"><%=child.first + " " + child.last%></option>
+    <% });%>
 </select>
-
-    <!--
-  when selected, auto fill the email address
--->
+</br>
 
 <label for="dateTime">Date</label>
 <input id="dateTime" name="dateTime" type="datetime-local" required />
+</br>
 
 <label for="staffName">Staff Name</label>
-<select id="staffName" name="staffName" required>
-  <%staff.forEach(function(s){%>
-    <option value="<%=s.id%>"><%=s.first + " " + s.last%></option><% });%>
-</select>
+  <select id="staffName" name="staffName" required>
+    <option>Staff Name</option>
+    <%staff.forEach(function(s){%>
+    <option value="<%=s.staffID%>"><%=s.username%></option>
+    <% });%>
+  </select>
+</br>
 
 <label for="location">Where did the accident/incident occur?</label>
-  <select id="location" name="location" required>   
+  <select id="location" name="location" required>
+    <option>Location</option>   
     <%location.forEach(function(loc){%>
     <option value="<%=loc.id%>"><%=loc.description%></option>
     <% });%>
   </select>
+</br>
 
 <label for="numChildrenPresent">How many children were present at the time of the accident/incident?</label>
 <select id="numChildrenPresent" name="numChildrenPresent" required>
+  <option>Number of Children</option>
   <option value="0-10">0-10</option>
   <option value="10-20">10-20</option>
   <option value="20-30">20-30</option>
   <option value="30+">30+</option>
 </select>
+</br>
 
 <label for="numAdultsPresent">How many adults were present at the time of the accident/incident?</label>
 <select id="numAdultsPresent" name="numAdultsPresent" required>
+  <option>Number of Adults</option>
   <option value="0">0</option>
   <option value="1">1</option>
   <option value="2">2</option>
@@ -45,3 +54,4 @@
   <option value="5">5</option>
   <option value="6+">6+</option>
 </select>
+</br>
