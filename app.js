@@ -348,6 +348,6 @@ app.put('/api/updateBehaviorBirs/:id', commonUIMiddlewares, async(req, res) => {
 
 //process.env.PORT
 // start server
-app.listen("8080", process.env.IP, () => { // set environment variable here
+app.listen("3030", process.env.IP, () => { // set environment variable here
     console.log('Express server is running...');
 });  
