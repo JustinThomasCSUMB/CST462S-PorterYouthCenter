@@ -11,65 +11,58 @@
           <select id="students" name="students">
               <option value="allStudents">All Students</option>
               <%students.forEach(function(student){%>
-              <option value="<%=student.id%>"><%=student.first + " " + student.last%></option>
+              <option value="<%=student.studentID%>"><%=student.first + " " + student.last%></option>
               <% });%>
           </select>
-          <input type="datetime-local" id="startDateTime"/>
-          <input type="datetime-local" id="endDateTime"/>
+          <input type="date" id="startDate"/>
+          <input type="date" id="endDate"/>
           <button id='showReports' class="btn btn-lg btn-primary btn-block">Show Reports</button>
       </div>
       </br>
 
-      <h2>Incident Information</h2>
-      <table>
-        <th>Date</th>
-        <th>Child's Name</th>
-        <th>Staff's Name</th>
-        <th>Location</th>
-        <th>Children Present</th>
-        <th>Adults Present></th>
-      </table>
-      </br>
-      
-      <h2>Injry Incident</h2>
+      <h2>Injury Reports</h2>
       <div id="injuryReports">
         <table id="injuryReportTable">
             <tr id="injuryHeader">
-                <th>Child's Name</th>
-                <th>Part Injured</th>
-                <th>Wound</th>
-                <th>How</th>                
-                <th>Edit</th>
-            </tr>
+              <th>Child's Name</th>
+              <th>Staff's Name</th>              
+              <th>Date</th>
+              <th>Time</th>
+              <th>Location</th>            
+              <th>Part Injured</th>
+              <th>How</th>                
+              <th>Edit</th>
+            </tr>            
+            
         </table>
       </div>
       </br>
       
-      <h2>Behavior Incident</h2>
+      <h2>Behavior Reports</h2>
       <div id="behaviorReports">
        <table id="behaviorReportTable">
             <tr id="behaviorHeader">
-                <th>Treated</th>
-                <th>At-risk Behavior</th>
-                <th>Behavior</th>
-                <th>Triggers</th>
-                <th>Supports</th>
-                <th>Recovery</th>
-                <th>Support Plan</th>
-                <th>Next Steps</th>
-                <th>Descripton</th>
-                <th>Edit</th>
+              <th>Child's Name</th>
+              <th>Staff's Name</th>              
+              <th>Date</th>
+              <th>Time</th>
+              <th>Location</th>              
+              <th>At-risk Behavior</th>
+              <th>Behavior</th>
+              <th>Triggers</th>
+              <th>Supports That Worked</th>              
+              <th>Edit</th>
             </tr>
         </table>
       </div>
       </br>
-      
+<!--       
       <h2>Parent/Guardian Review</h2>
       <table>
         <th>Manager Signature</th>
         <th>Parent Signature</th>
         <th>Parent Feedback</th>
-      </table>
+      </table> -->
       </br>
     </main>
 
