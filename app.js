@@ -318,24 +318,31 @@ app.post('/birs/behavior', commonUIMiddlewares, async(req, res) => {
      res.redirect('/birs/injury');
 });
 
-// gets all reports for specific student or all students
-app.get('/reports/:startDateTime/:endDateTime/:studentId', commonUIMiddlewares, async(req, res) => {
-    let studentId = req.params.studentId;
-    let injuryReports;
-    let behaviorReports;
+/***** api *****/
 
-    if(studentId == 'allStudents'){
-        injuryReports = await reports.getInjuryReports(req.params.startDateTime, req.params.endDateTime);
-        behaviorReports = await reports.getBehaviorReports(req.params.startDateTime, req.params.endDateTime);
+// gets all reports for specific student or all students
+app.get('/api/reports/:startDate/:endDate/:studentId', commonUIMiddlewares, async(req, res) => {
+    let studentId = req.params.studentId.toLowerCase();
+    let allReports;
+    let injuryReports = [];
+    let behaviorReports = [];
+
+    if(studentId == 'allstudents'){
+        allReports = await reports.getAllReports(req.params.startDate, req.params.endDate);        
     }else{
-        injuryReports = await reports.getInjuryReport(req.params.startDateTime, req.params.endDateTime, req.params.studentId);
-        behaviorReports = await reports.getBehaviorReport(req.params.startDateTime, req.params.endDateTime, req.params.studentId);
+        allReports = await reports.getStudentReports(req.params.startDate, req.params.endDate, req.params.studentId);       
     }
 
-    res.render('reports', {injuryReports: injuryReports, behaviorReports: behaviorReports});
-});
+    allReports.forEach(function(report){
+        if(report.bodypart == '' || report.bodypart == null || report.bodypart == undefined){
+            behaviorReports.push(report);
+        }else{
+            injuryReports.push(report);
+        }
+    });
 
-/***** api *****/
+    res.send({injuryReports: injuryReports, behaviorReports: behaviorReports});
+});
 
 // submit new behavior birs
 app.post('/api/submitBehaviorBirs', commonUIMiddlewares, async(req, res) => {
@@ -368,6 +375,6 @@ app.put('/api/updateBehaviorBirs/:id', commonUIMiddlewares, async(req, res) => {
 
 //process.env.PORT
 // start server
-app.listen("8080", process.env.IP, () => { // set environment variable here
+app.listen("3030", process.env.IP, () => { // set environment variable here
     console.log('Express server is running...');
 });  
