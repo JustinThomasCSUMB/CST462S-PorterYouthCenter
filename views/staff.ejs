@@ -4,28 +4,80 @@
     <script src="/js/staff.js"></script>
     <%- include('partials/nav.ejs') %>
 
-      <main class="d-flex justify-content-center align-items-center">
+      <main class="justify-content-center align-items-center">
         <h1>Staff</H1>
         <form id="staff-form" method="POST">
+          <input type="hidden" class="action" name="action" value="add" />
+          <label for="userName">User Name</label>
+          <input id="userName" name="userName" type="text" required />
 
-            <label for="userName">User Name</label>
-            <input id="userName" name="userName" type="text" required />
+          <label for="firstName">First Name</label>
+          <input id="firstName" name="firstName" type="text" required />
+      
+          <label for="lastName">Last Name</label>
+          <input id="lastName" name="lastName" type="text" required />
 
-            <label for="firstName">First Name</label>
-            <input id="firstName" name="firstName" type="text" required />
-        
-            <label for="lastName">Last Name</label>
-            <input id="lastName" name="lastName" type="text" required />
+          <label for="email">email</label>
+          <input id="email" name="email" type="email" required />
 
-            <label for="email">email</label>
-            <input id="email" name="email" type="email" required />
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" required />
 
-            <label for="password">Password</label>
-            <input id="password" name="password" type="password" required />
-
-            <button class="btn btn-lg btn-primary btn-block" type="submit" id="submit">Submit</button>
+          <button class="btn btn-lg btn-primary btn-block" type="submit" id="submit">Submit</button>
         </form>
       </main>
+      
+    <div id="update">
+      <form id="staff-update" method="POST">
+        
+        <input type="hidden" class="action" name="action" value="update" />
+  
+        <label for="userName">User Name</label>
+        <input id="update_userName" name="userName" type="text" readonly />
+    
+        <label for="firstName">First Name</label>
+        <input id="update_firstName" name="firstName" type="text" required />
+    
+        <label for="lastName">Last Name</label>
+        <input id="update_lastName" name="lastName" type="text" required />
+
+        <label for="email">email</label>
+        <input id="update_email" name="email" type="email" required />
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required/>
+  
+        <input type="hidden" id="update_staffID" name="staffID" value=""/>
+        
+        <button class="btn btn-lg btn-primary btn-block" type="button" id="cancel">Cancel</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" id="submit">Submit</button>
+      </form>
+    </div>
+
+    <form id="staff-list" method="POST"> 
+    <input type="hidden" class="action" name="action" value="modify" />
+    <table>
+        <tr>
+            <th>Staff ID</th>
+            <th>Username</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+        </tr>
+        <%staff.forEach(function(staffmember){%>
+            <tr>
+            <td class='staffID'><%=staffmember.staffID%></td>
+            <td class='userName'><%=staffmember.username%></td>
+            <td class='first'><%=staffmember.first%></td>
+            <td class='last'><%=staffmember.last%></td>
+            <td class='email'><%=staffmember.email%></td>
+            <td><button name='delete' value='<%=staffmember.staffID%>' class="btn btn-lg btn-primary btn-block" type="submit">Delete</button></td>
+            <td><button value ='<%=staffmember.staffID%>' class="edit btn btn-lg btn-primary btn-block" type="button">Edit</button></td>
+            </tr>
+        <% });%>
+    </table>
+    </form>
+    </br>
 
       <%- include('partials/footer.ejs') %>
 

@@ -33,6 +33,47 @@ const createBehavior = async (email, studentID, date, staffID, location, nChildr
   return getQueryResult(sql, sqlParams);
 };
 
+const addTrigger = async (id, possibleTrigger) => {
+
+  for (let i = 0; i < (possibleTrigger === undefined ? 0: possibleTrigger.length); i++){
+    console.log("For loop: " + possibleTrigger[i]);
+    let sql = `INSERT INTO INCIDENT_TRIGGER (incident, trig) values (?, ?)`;
+    let sqlparams = [id, possibleTrigger[i]];
+    console.log(sql + " " + sqlparams);
+    getQueryResult(sql, sqlparams);
+  }
+};
+
+const addSupport = async (id, possibleTrigger) => {
+  for (let i = 0; i < (possibleTrigger === undefined ? 0: possibleTrigger.length); i++){
+    console.log("For loop: " + possibleTrigger[i]);
+    let sql = `INSERT INTO INCIDENT_SUPPORT (incident, support) values (?, ?)`;
+    let sqlparams = [id, possibleTrigger[i]];
+    console.log(sql + " " + sqlparams);
+    getQueryResult(sql, sqlparams);
+  }
+};
+
+const addPlan = async (id, possibleTrigger) => {
+  for (let i = 0; i < (possibleTrigger === undefined ? 0: possibleTrigger.length); i++){
+    console.log("For loop: " + possibleTrigger[i]);
+    let sql = `INSERT INTO INCIDENT_PLAN (incident, plan) values (?, ?)`;
+    let sqlparams = [id, possibleTrigger[i]];
+    console.log(sql + " " + sqlparams);
+    getQueryResult(sql, sqlparams);
+  }
+};
+
+const addNext = async (id, possibleTrigger) => {
+  for (let i = 0; i < (possibleTrigger === undefined ? 0: possibleTrigger.length); i++){
+    console.log("For loop: " + possibleTrigger[i]);
+    let sql = `INSERT INTO INCIDENT_NEXT (incident, next) values (?, ?)`;
+    let sqlparams = [id, possibleTrigger[i]];
+    console.log(sql + " " + sqlparams);
+    getQueryResult(sql, sqlparams);
+  }
+};
+
 //TODO: fill in all the single requests
 
 /**
@@ -196,7 +237,11 @@ module.exports = {
   getBirsParams,
   getSections,
   createInjury, 
-  createBehavior
+  createBehavior,
+  addTrigger,
+  addSupport,
+  addNext,
+  addPlan
   // fill in the services
 }
 

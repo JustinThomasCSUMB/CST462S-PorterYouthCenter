@@ -65,27 +65,45 @@ app.get('/logout', (req, res) => {
 });
 
 app.get('/staff', commonUIMiddlewares, async (req, res) => {
-
-       res.render('staff');
+    let stafflist = await birs.getSections("staff");
+    //console.dir(stafflist);
+    res.render('staff', {staff: stafflist});
 });
 
 app.post('/staff', async (req, res) => {
 
+    let action = req.body.action;
+    let del = req.body.delete;
+    
     const userName = req.body.userName;
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
-    const password = req.body.password;
+    const password = req.body.password;;
     const email = req.body.email;
-
-    console.dir(req.body);
+    let id = req.body.staffID;
     
-    bcrypt.hash(password, 10, function(err, hash) {
-        // Store hash in your password DB.
-        console.log("Name: " + firstName + " " + lastName);
-        users.createUser(userName, hash, firstName, lastName, email);
-    });
+    let result, hash;
 
-    res.redirect('/logout');
+    //const hash = bcrypt.hashSync(password, saltRounds);
+
+    switch(action) {
+        case 'modify':
+            console.log("Delete ID record: " + del);
+            result = await users.deleteUser(del);
+        break;
+        case 'update':
+            console.log("Update ID record: " + id);
+            hash = bcrypt.hashSync(password, saltRounds);
+            result = await users.updateUser(id, hash, firstName, lastName, email);
+        break;
+        case 'add':
+            console.log("Add user: " + userName);
+            hash = bcrypt.hashSync(password, saltRounds);
+            result =  await users.createUser(userName, hash, firstName, lastName, email);
+        break;
+    }
+    
+    res.redirect('/staff');
 
 });
 
@@ -213,27 +231,21 @@ app.post('/students', async(req, res) => {
     
     let action = req.body.action;
     let del = req.body.delete;
-    let edit = req.body.edit;
-    
+
     let first = req.body.firstName;
     let last = req.body.lastName;
     let contact = req.body.contact;
     let email = req.body.email;
     let id = req.body.studentID;
     
-    console.dir(req.body);
+    //console.dir(req.body);
     
     console.log(action);
 
     switch(action) {
         case 'modify':
-            if (del) {
-                console.log("Delete ID record: " + del);
-                students.deleteStudent(del);
-            }
-            else if (edit) {
-                console.log("Edit ID record: " + edit);
-            }
+            console.log("Delete ID record: " + del);
+            students.deleteStudent(del);
         break;
         case 'update':
             console.log("Update ID: " + id);
@@ -251,7 +263,7 @@ app.post('/students', async(req, res) => {
 
 app.post('/birs/injury', commonUIMiddlewares, async(req, res) => {
     
-    console.dir(req.body);
+    //console.dir(req.body);
     
     let email = req.body.email;
     let studentID = req.body.children;
@@ -287,15 +299,23 @@ app.post('/birs/behavior', commonUIMiddlewares, async(req, res) => {
 	let recovery = req.body.recovery;
 	let incidentDescription = req.body.incidentDescription;
 	let managerSignature = req.body.gerSignature;
+	let possibleTrigger =  req.body.possibleTrigger;
+    let supportthatworks = req.body.supportthatworks;
+    let plan = req.body.plan;
+    let nextsteps = req.body.nextsteps;
     
     let result = await birs.createBehavior(email, studentID, date, staffID, location, nChildren, 
 	nAdults, riskBehavior, behavior, recovery, incidentDescription, managerSignature);
 
-    console.log("Incident ID: " + result.insertId);
+    let incidentID = result.insertId;
+    console.log("Incident ID: " + incidentID);
     
-    //deal with other fields once incident ID is obtained
-
-    res.redirect('/birs/injury');
+    result = await birs.addTrigger(incidentID, possibleTrigger);
+    result = await birs.addPlan(incidentID, plan);
+    result = await birs.addSupport(incidentID, supportthatworks);
+    result = await birs.addNext(incidentID, nextsteps);
+   
+     res.redirect('/birs/injury');
 });
 
 // gets all reports for specific student or all students

@@ -13,6 +13,7 @@
 
             <label for="bodyPart">Part of body injured</label>
             <select id="bodyPart" name="bodyPart" required>
+              <option>Select Body Part</option>
               <%bodyPart.forEach(function(part){%>
                 <option value="<%=part.id%>"><%=part.description%></option>
               <% });%>

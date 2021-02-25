@@ -12,7 +12,23 @@ const createUser = async (username, password, first, last, email) => {
   return getQueryResult(sql, sqlParams);
 };
 
+const updateUser = async (id, password, first, last, email) => {
+  let sql = 'UPDATE STAFF SET first = ?, last = ?, password = ?, email = ? where staffID = ?';
+  let sqlParams = [first, last, password, email, id];
+  console.log(sql + " " + sqlParams);
+  return getQueryResult(sql, sqlParams);
+};
+
+const deleteUser = async (id) => {
+  console.log("deleteUser: " + id);
+  let sql = 'DELETE FROM STAFF where staffID = ?';
+  let sqlParams = [id];
+  return getQueryResult(sql, sqlParams);
+};
+
 module.exports = {
   getByUsername,
-  createUser
+  createUser,
+  updateUser,
+  deleteUser
 };
